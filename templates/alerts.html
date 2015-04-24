@@ -1,0 +1,83 @@
+<!--
+   Copyright 2015 Landmark Replug Team
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<ion-view view-title="Alerts">
+  <ion-content>
+      <div class="replug-loader" ng-show="loading">
+          <ion-spinner icon="spiral"></ion-spinner>
+          <p>Fetching data... Please wait</p>
+      </div>
+<ion-refresher on-refresh="doRefresh()">
+                  
+</ion-refresher>
+    
+<div class="list card" ng-repeat='data in Alerts'>
+  <div class="item item-avatar item-stable">
+    <img src="./img/{{data.alerts.user.avatar}}">
+    <h2>{{data.alerts.user.name}}</h2>
+    <p>{{data.alerts.datePosted}}</p>
+
+  </div>
+
+  <div class="item item-body">
+    <a style="color: #ef473a;font-size: 22px; font-weight: bold; text-decoration: none" href="#/app/alerts/{{data.alerts.id}}">
+    <img style="margin-bottom: 10px;" class="full-image" src="./img/{{data.alerts.image}}">
+       {{data.alerts.title}}
+    </a>
+        
+    <p style="font-size: 16px;">
+       {{data.alerts.description}}
+    </p>
+    <div style="color: #348500; font-weight: bold">
+       <i class="ion-clipboard"></i> {{data.alerts.diagnosesCount}} diagnoses 
+        <span style="margin-left: 10px">
+        <i class="ion-eye"></i> {{data.alerts.watchCount}} Watchers
+        </span>
+      <hr>
+      <a href="#" class="subdued"> 
+          <i class="ion-ios-medkit-outline"></i> <span style="color: red; font-weight: bold">
+          {{data.alerts.areaAffected}} Affected
+          </span>
+      </a> 
+          <span style="float: right">
+           <button class="button button-clear button-energized" style="margin-top: -17px; margin-bottom: -17px" ng-click="locationConfirm()">
+               <i class="ion-location"></i>
+              {{data.alerts.location}}
+              </button>
+          </span>
+    </div>
+  </div>
+
+  <div class="item tabs tabs-secondary card-bottom tabs-icon-left">
+    <button class="button button-clear tab-item" ng-click="watchConfirm()">
+      <i class="icon ion-eye"></i>
+      Keep Watch
+    </button>
+    <button class="button button-clear tab-item" ng-click="showAddDiagnose()">
+      <i class="icon ion-chatbox"></i>
+      Add diagnosis
+    </button>
+    <button class="button button-clear tab-item" ng-click="shareVia()">
+      <i class="icon ion-share"></i>
+      Share
+    </button>
+
+  </div>
+      </div>
+      
+      
+  </ion-content>
+</ion-view>
