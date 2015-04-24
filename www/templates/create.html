@@ -1,0 +1,158 @@
+<!--
+   Copyright 2015 Landmark Replug Team
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<ion-modal-view  ng-controller="alertPostCtrl">
+  <ion-header-bar class="bar-header bar-energized">
+    <h1 class="title">Create Alert</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeAddPost()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+      <div ng-show="postLoader" class="replug-loader">
+      <ion-spinner icon="spiral"></ion-spinner>
+      <p style="margin-left: 10px; color: #4b1514; font-weight: bold">
+            Creating Alert...
+      </p>
+      </div>
+      
+      <div  ng-show="errState" class="replug-loader">
+      <div class="card" style="background: #ff0000;">
+       <div class="item item-text-wrap" >
+           {{errMsg}}<br><br>
+           <button style="margin-top: 5px" class="button button-clear button-energized" ng-click="tryAgain()">Try Again</button>
+      </div>
+      </div>
+      </div>
+      <div ng-show="postForm">
+      <div class="card" >
+  <div class="item item-text-wrap" style="background-color: #33cd5f; color: #fff; font-weight: bold">
+    Alert Information
+  </div>
+      </div>
+    <form name="post-alert">
+        <div class="padding-horizontal">
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Title</span>
+            <input type="text" placeholder="E.g Pest Infestation" ng-model="alert.title">
+        </label>
+    </div>
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Description</span>
+            <textarea placeholder="Give a brief description" style="height: 90px" ng-model="alert.description"></textarea>
+        </label>
+    </div>
+        <div class="list">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Date Started</span>
+            <input type="date" placeholder="Select Date..." ng-model="alert.startDate">
+        </label>
+        </div>
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Area of land affected</span>
+            <input type="text" placeholder="E.g 20%" ng-model="alert.areaAffected">
+        </label>
+    </div>
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Location</span>
+            <input type="text" placeholder="E.g sango farms, Ilorin, Kwara" ng-model="alert.location">
+        </label>
+    </div>
+    
+    <div class="list">
+        <label class="item">
+          <button class="button button-energized" ng-click="showImgSheet()">
+          Add Pest Images
+            </button>
+        </label>
+
+        <hr>
+        <ion-scroll>
+        <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" ng-model="alert.image" height="200px"/>
+        </ion-scroll>
+            </div>
+            </div>
+        
+        <div class="padding-horizontal">
+         <div class="list">
+
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Category
+            </div>
+        <select ng-model="alert.tag">
+            <option value="Pest insects">Pest insects</option>
+            <option value="Pest mites">Pest mites</option>
+            <option value="Cane toad">Pest nematodes</option>
+            <option value="Crop weed">Crop weed</option>
+            <option value="Damasonium minus">Damasonium minus</option>
+            <option value="Honey bee">Honey bee</option>
+            <option value="Grape pests">Grape pests</option>
+            <option value="Pest molluscs">Pest molluscs</option>
+            <option value="Mole (animal)">Mole (animal)</option>
+            <option value="Noxious weed">Noxious weed</option>
+        </select>
+        </label>
+             
+        </div>       
+        </div>
+        
+        <div class="card">
+            <div class="item item-text-wrap" style="background-color: #33cd5f; color: #fff; font-weight: bold">
+                Alert Notification
+            </div>
+        </div>
+        
+        <div class="padding-horizontal">
+        <ul class="list">
+
+      <li class="item item-toggle">
+         Send Diagnoses via SMS
+         <label class="toggle toggle-assertive">
+           <input type="checkbox" ng-model="alert.smsAlert">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+            
+     <li class="item item-toggle">
+         Send Diagnoses via Email
+         <label class="toggle toggle-assertive">
+           <input type="checkbox" ng-model="alert.emailAlert">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+            </ul>
+        
+        </div>
+        <div class="list">
+            <label class="item">
+                <button style="margin-top: 15px" class="button button-block button-energized" ng-click="postAlert(alert)" type="submit">Post Alert</button>
+            </label>
+        </div>
+    </form>
+      
+      </div>
+      
+  </ion-content>
+</ion-modal-view>

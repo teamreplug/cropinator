@@ -1,0 +1,87 @@
+<!--
+   Copyright 2015 Landmark Replug Team
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<ion-modal-view ng-controller="addDiagnosis">
+  <ion-header-bar class="bar-header bar-energized">
+    <h1 class="title">Add Diagnose</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeDiagnosis()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+      <div ng-show="diaLoader" class="replug-loader">
+      <ion-spinner icon="spiral"></ion-spinner>
+      <p style="margin-left: 10px; color: #4b1514; font-weight: bold">
+            Posting Diagnosis...
+      </p>
+      </div>
+      
+      <div ng-show="errState" class="replug-loader">
+      <div class="card" style="background: #ff0000;">
+       <div class="item item-text-wrap" >
+           {{errMsg}}<br><br>
+           <button style="margin-top: 5px" class="button button-clear button-energized" ng-click="tryAgain()">Try Again</button>
+      </div>
+      </div>
+      </div>
+      <div ng-show="diaForm">
+      <div class="card" >
+      </div>
+    <form name="post-alert">
+        <div class="padding-horizontal">
+    <div class="list">
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Diagnose Message</span>
+            <textarea placeholder="What do you think can help?" style="height: 90px" ng-model="alert.description"></textarea>
+        </label>
+    </div>
+
+        <div class="padding-horizontal">
+        <ul class="list">
+
+      <li class="item item-toggle">
+         Watch Alert via SMS
+         <label class="toggle toggle-assertive">
+           <input type="checkbox" ng-model="alert.smsAlert">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+            
+     <li class="item item-toggle">
+         Watch via Email
+         <label class="toggle toggle-assertive">
+           <input type="checkbox" ng-model="alert.emailAlert">
+           <div class="track">
+             <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+            </ul>
+        
+        </div>
+        <div class="list">
+            <label class="item">
+                <button style="margin-top: 15px" class="button button-block button-energized" ng-click="postDia(alert)" type="submit">Post Diagnosis</button>
+            </label>
+        </div>
+    </form>
+      
+      </div>
+      
+  </ion-content>
+</ion-modal-view>
